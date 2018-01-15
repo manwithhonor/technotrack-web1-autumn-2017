@@ -102,4 +102,10 @@ ENV/
 
 # PyCharm
 .idea
+*.idea
+**/*.idea
+**/.idea
 *.pyc
+**/*.pyc
+**/.pyc
+/*.pyc

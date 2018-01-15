@@ -13,7 +13,10 @@ $(document).ready(function () {
 
     $(document).on('submit', '[data-formtype="ajaxForm"]', function (event) {
         $.post(this.action, $(this).serialize(), function (data) {
-            if (data == "OK") document.location.reload();
+            if (data == "OK") {
+            document.location.reload();
+
+            }
             else $('#blogEdit').html(data);
         });
         event.preventDefault();

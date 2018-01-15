@@ -88,7 +88,7 @@ class BlogUpdate(UpdateView):
         if self.object.author == self.request.user:
             super(BlogUpdate, self).form_valid(form)
             template=loader.get_template('blog/blogpage.html')
-            return HttpResponse('OK')
+            return HttpResponseRedirect('http://127.0.0.1:8080/blog/')
         else:
             return HttpResponseRedirect(404)
 
