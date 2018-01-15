@@ -1,0 +1,44 @@
+{% extends "core/base.html" %}
+{% load bootstrap3 %}
+{% load static %}
+{% block content %}
+    <script src="{% static "update_comment.js" %}"></script>
+    <script src="{% static "likepost.js" %}" type="text/javascript"></script>
+
+<div class="row">
+    <div class="col-md-6">
+    <p align="center   ">  Post name: <b> <big> {{post.postname}}</big> </b>   </p>
+    <p style="border: 1px solid; padding: 5px" align="right" > {{post.text}} </p>
+    <h3 align="right">
+         <meta name="csrf" content="{{ csrf_token }}">
+         <span id="likes-{{ post.id }}">{{ likes }} likes </span>
+         {% if user.is_authenticated %}
+         <button type="button" class="btn btn-default btn-sm btn ajaxlike" data-url="{% url "blog:post_ajax_like" ident=post.id %}" data-postid="{{ post.id }}">
+         <span class="glyphicon glyphicon-thumbs-up"></span> Like
+         </button>
+         {#            <button class="btn ajaxlike" data-url="{% url "blog:post_ajax_like" ident=post.id %}" data-postid="{{ post.id }}">#}
+         {#                <li class="active"><span class="glyphicon glyphicon-thumbs-up"></span></li></button>#}
+         {% endif %}
+    </h3>
+    <h3> Comments: </h3>
+    <p>{% include "blog/comments.html" %}</p>
+    <form action="" method="post" >
+        {% csrf_token %}
+        {% bootstrap_form form  %}
+        <input type="submit" value="Comment">
+    </form>
+    </div>
+    <div class="col-md-6">
+        <div align="right">
+            {% if user.id == post.author.id %}
+            <div class="new_cat">
+                <a href="{% url "blog:edit_post" pk=post.id %}">
+                <span class="glyphicon glyphicon-pencil"></span>
+                <strong>Edit post </strong>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+
+    <h3> List of posts in blog <b>"{{ blog.name }}"</b>:</h3>
+    <p>
+        {% for post in blog.posts.all%}
+        <ol>
+            <em>{{forloop.counter}}.</em>
+        <a href="{% url "blog:concretePost" ident=post.id  %}"> {{post.postname}} </a>
+        </ol>
+        {% endfor %}
+    </p>
+<br></br>
+   {% if user.id == blog.author.id %}
+
+<ol>
+            <div class="new_cat">
+               <a href="{% url "blog:new_post" ident=blog.id%}">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <strong>New post</strong>
+                </a>
+            </div>
+        </ol>
+    {% endif %}
+
+{% endblock%}

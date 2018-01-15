@@ -1,0 +1,55 @@
+{% extends "core/base.html" %}
+{% load bootstrap3 %}
+{% load static %}
+{% block content %}
+    <script src="{% static "edit_blog.js" %}">
+    </script>
+
+
+
+    <h2> List of blogs  </h2>
+
+
+    {% for blog in object_list %}
+        <ol>
+            <em>{{forloop.counter}}. </em>
+            <a href="{% url "blog:blogWithItsPosts" ident=blog.id %}">{{blog.name}} </a>
+            <span>
+            <small>
+                created at {{blog.createdata}}
+                {% if user.id != blog.author.id %}
+                    by <strong>{{blog.author}}</strong>
+                {% else %}
+                <div class="new_cat">
+                <a href="{% url "blog:edit_blog" pk=blog.id %}">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    <strong>Edit blog </strong>
+                </a>
+            </div>
+                {% endif %}
+                </small>
+            </span>
+        </ol>
+    {% endfor %}
+
+    <div class="modal fade" id="blogModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body" id="blogEdit">
+          </div>
+        </div>
+      </div>
+    </div>
+<br> </br>
+    <ol>
+            <div class="new_cat">
+                <a href="{% url "blog:new_blog" %}">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <strong>Create new blog</strong>
+                </a>
+            </div>
+        </ol>
+{% endblock %}

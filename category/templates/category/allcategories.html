@@ -1,0 +1,21 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h2>List of categorys</h2>
+        {% for category in categories %}
+        <ol>
+            <em>{{forloop.counter}}. </em>
+            <a href="{% url "category:onecategory" ident=category.id %}">{{category}}</a>
+        </ol>
+    {% endfor %}
+<br></br>
+<ol>
+            <div class="new_cat">
+                <a href="{% url "category:newcategory" %}">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <strong>New category</strong>
+                </a>
+            </div>
+        </ol>
+{% endblock %}
+ 

@@ -1,0 +1,13 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+    <h4>Blogs in category <b>"{{ category_name }}"</b>: </h4>
+
+    {% for blog in object_list %}
+    <div>
+        <em>{{forloop.counter}}. </em>
+        <a href="{% url "blog:blogWithItsPosts" ident=blog.id %}"> {{blog}} </a>
+    </div>
+    {% endfor %}
+{% endblock %}
+
